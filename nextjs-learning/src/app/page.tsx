@@ -1,26 +1,22 @@
-"use client";
-import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
-  const [name, setName] = useState("Arman");
-  const showName = () => {
-    alert(`Name: ${name}`);
-  };
   return (
-    <div>
-      <button
-        onClick={showName}
+    <main>
+      <h1>My First Next.js Website</h1>
+      <p>I am learning Next.js from scratch.</p>
+      <Link
+        href="/about"
         style={{
-          backgroundColor: "lightseagreen",
+          backgroundColor: "lightcoral",
           color: "black",
-          fontSize: 20,
-          width: 100,
-          height: 100,
-          
+          padding: "10px 16px",
+          borderRadius: "6px",
+          textDecoration: "none",
         }}
       >
-        Click
-      </button>
-    </div>
+        About Page
+      </Link>
+    </main>
   );
 }
