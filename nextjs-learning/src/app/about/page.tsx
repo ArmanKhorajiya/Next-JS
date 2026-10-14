@@ -4,12 +4,27 @@ export default function About() {
   return (
     <main
       style={{
-        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "center",
         justifyContent: "center",
+        minHeight: "60vh",
       }}
     >
-      <h1>About Me</h1>
-      <p>I am learning Next.js step by step.</p>
+      <h1
+        style={{
+          textAlign: "center",
+        }}
+      >
+        About Me
+      </h1>
+      <p
+        style={{
+          textAlign: "center",
+        }}
+      >
+        I am learning Next.js step by step.
+      </p>
       <Link
         href="/"
         style={{
@@ -18,6 +33,7 @@ export default function About() {
           padding: "10px 16px",
           borderRadius: "6px",
           textDecoration: "none",
+          textAlign: "center",
         }}
       >
         Home Page

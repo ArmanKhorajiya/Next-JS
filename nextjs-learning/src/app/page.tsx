@@ -2,9 +2,29 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main>
-      <h1>My First Next.js Website</h1>
-      <p>I am learning Next.js from scratch.</p>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "center",
+        justifyContent: "center",
+        minHeight: "60vh",
+      }}
+    >
+      <h1
+        style={{
+          textAlign: "center",
+        }}
+      >
+        My First Next.js Website
+      </h1>
+      <p
+        style={{
+          textAlign: "center",
+        }}
+      >
+        I am learning Next.js from scratch.
+      </p>
       <Link
         href="/about"
         style={{
@@ -13,6 +33,7 @@ export default function Home() {
           padding: "10px 16px",
           borderRadius: "6px",
           textDecoration: "none",
+          textAlign: "center",
         }}
       >
         About Page
