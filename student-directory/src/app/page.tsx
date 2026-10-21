@@ -70,55 +70,143 @@ export default function Home() {
   );
 
   return (
-    <main className="min-h-screen bg-gray-100 p-6 text-gray-900">
-      <div className="mx-auto max-w-5xl">
-        <h1 className="text-3xl font-bold">Student Directory</h1>
+    <>
+      <style>{`
+        * {
+          box-sizing: border-box;
+        }
 
-        <p className="mt-2 text-gray-600">
-          Search and view student information.
-        </p>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+          color: #222;
+        }
 
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search student by name..."
-          className="mt-6 w-full rounded border border-gray-300 bg-white p-3 outline-none focus:border-blue-500"
-        />
+        .page {
+          min-height: 100vh;
+          background: #f3f4f6;
+          padding: 35px 20px;
+        }
 
-        <p className="mt-4 text-sm text-gray-600">
-          Total students found: {filteredStudents.length}
-        </p>
+        .container {
+          max-width: 1000px;
+          margin: 0 auto;
+        }
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredStudents.map((student) => (
-            <div
-              key={student.id}
-              className="rounded border border-gray-200 bg-white p-5"
-            >
-              <h2 className="text-xl font-semibold">{student.name}</h2>
+        .page h1 {
+          margin: 0;
+          font-size: 32px;
+        }
 
-              <p className="mt-2 text-gray-600">
-                Roll Number: {student.rollNo}
-              </p>
+        .description {
+          margin-top: 10px;
+          color: #666;
+        }
 
-              <p className="mt-1 text-gray-600">
-                Department: {student.department}
-              </p>
+        .search-input {
+          width: 100%;
+          padding: 12px;
+          margin-top: 20px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          background: white;
+          font-size: 16px;
+        }
 
-              <p className="mt-1 text-gray-600">Semester: {student.semester}</p>
+        .search-input:focus {
+          outline: 2px solid #93c5fd;
+          border-color: #2563eb;
+        }
 
-              <p className="mt-1 break-words text-blue-600">
-                Email: {student.email}
-              </p>
-            </div>
-          ))}
+        .result-count {
+          margin: 20px 0 12px;
+          color: #555;
+          font-size: 14px;
+        }
+
+        .student-list {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 16px;
+        }
+
+        .student-card {
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          background: white;
+        }
+
+        .student-card h2 {
+          margin: 0 0 14px;
+          font-size: 20px;
+        }
+
+        .student-card p {
+          margin: 8px 0;
+          color: #555;
+          font-size: 14px;
+          overflow-wrap: anywhere;
+        }
+
+        .empty-message {
+          margin-top: 25px;
+          text-align: center;
+          color: #666;
+        }
+
+        @media (max-width: 750px) {
+          .student-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 500px) {
+          .student-list {
+            grid-template-columns: 1fr;
+          }
+
+          .page h1 {
+            font-size: 27px;
+          }
+        }
+      `}</style>
+
+      <main className="page">
+        <div className="container">
+          <h1>Student Directory</h1>
+
+          <p className="description">Search and view student information.</p>
+
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search student by name..."
+            className="search-input"
+          />
+
+          <p className="result-count">
+            Total students found: {filteredStudents.length}
+          </p>
+
+          <div className="student-list">
+            {filteredStudents.map((student) => (
+              <div className="student-card" key={student.id}>
+                <h2>{student.name}</h2>
+                <p>Roll Number: {student.rollNo}</p>
+                <p>Department: {student.department}</p>
+                <p>Semester: {student.semester}</p>
+                <p>Email: {student.email}</p>
+              </div>
+            ))}
+          </div>
+
+          {filteredStudents.length === 0 && (
+            <p className="empty-message">No students found.</p>
+          )}
         </div>
-
-        {filteredStudents.length === 0 && (
-          <p className="mt-6 text-center text-gray-600">No students found.</p>
-        )}
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
