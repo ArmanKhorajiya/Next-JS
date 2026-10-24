@@ -24,7 +24,6 @@ export default function HomePage() {
           </Link>
         </section>
 
-        <section>
           <h2>Featured Recipes</h2>
 
           <p className="page-description">A few recipes to get you started.</p>
@@ -34,7 +33,6 @@ export default function HomePage() {
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
           </div>
-        </section>
 
         <section className="content-card">
           <h2>Browse the Recipe Catalog</h2>
