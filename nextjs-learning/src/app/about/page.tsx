@@ -14,6 +14,16 @@ export default function About() {
       <h1
         style={{
           textAlign: "center",
+          fontSize: 35,
+          marginBottom: 30,
+          color: "black",
+        }}
+      >
+        Home Page
+      </h1>
+      <h1
+        style={{
+          textAlign: "center",
         }}
       >
         About Me
@@ -28,7 +38,7 @@ export default function About() {
       <Link
         href="/"
         style={{
-          backgroundColor: "lightcoral",
+          backgroundColor: "green",
           color: "black",
           padding: "10px 16px",
           borderRadius: "6px",
@@ -36,7 +46,7 @@ export default function About() {
           textAlign: "center",
         }}
       >
-        Home Page
+        Go To Home Page
       </Link>
     </main>
   );

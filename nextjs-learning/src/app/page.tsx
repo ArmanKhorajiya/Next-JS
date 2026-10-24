@@ -6,6 +6,10 @@ const signupSchema = z.object({
   password: z.string().min(0),
 });
 
+function createUser(data:FormData){
+  const result =signupSchema
+}
+
 export default function Home() {
   return (
     <main
@@ -17,6 +21,16 @@ export default function Home() {
         minHeight: "60vh",
       }}
     >
+      <h1
+        style={{
+          textAlign: "center",
+          fontSize:35,
+          marginBottom:30,
+          color:"black"
+        }}
+      >
+        Home Page
+      </h1>
       <h1
         style={{
           textAlign: "center",
@@ -34,7 +48,7 @@ export default function Home() {
       <Link
         href="/about"
         style={{
-          backgroundColor: "lightcoral",
+          backgroundColor: "green",
           color: "black",
           padding: "10px 16px",
           borderRadius: "6px",
@@ -42,7 +56,7 @@ export default function Home() {
           textAlign: "center",
         }}
       >
-        About Page
+        Go To About Page
       </Link>
     </main>
   );

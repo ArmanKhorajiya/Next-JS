@@ -34,8 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             textAlign: "center",
           }}
         >
-          <h2>My Website</h2>
-          <p>Learning Next.js step by step</p>
+          <h2 style={{fontSize:40}}>My Website</h2>
         </header>
 
         {children}
