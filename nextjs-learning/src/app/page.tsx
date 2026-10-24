@@ -1,4 +1,10 @@
 import Link from "next/link";
+import { z } from "zod";
+
+const signupSchema = z.object({
+  email: z.email(),
+  password: z.string().min(0),
+});
 
 export default function Home() {
   return (
