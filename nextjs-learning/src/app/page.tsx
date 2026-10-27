@@ -6,8 +6,8 @@ const signupSchema = z.object({
   password: z.string().min(0),
 });
 
-function createUser(data:FormData){
-  const result =signupSchema
+function createUser(data: FormData) {
+  const result = signupSchema;
 }
 
 export default function Home() {
@@ -24,9 +24,9 @@ export default function Home() {
       <h1
         style={{
           textAlign: "center",
-          fontSize:35,
-          marginBottom:30,
-          color:"black"
+          fontSize: 35,
+          marginBottom: 30,
+          color: "black",
         }}
       >
         Home Page
