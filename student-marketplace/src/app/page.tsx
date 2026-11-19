@@ -112,7 +112,7 @@ export default function Home() {
       </header>
 
       {/* HERO */}
-      <section className="border-b border-gray-800 bg-gradient-to-r from-[#111827] via-[#14264a] to-[#111827]">
+      <section className="border-b border-gray-800 bg-linear-to-r from-[#111827] via-[#14264a] to-[#111827]">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-20 md:grid-cols-2">
           <div>
             <span className="inline-block rounded-full border border-blue-500 px-4 py-2 text-xs font-semibold tracking-wider text-blue-400">
