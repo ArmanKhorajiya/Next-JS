@@ -35,6 +35,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Fetch products from MongoDB
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -60,6 +61,7 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  // Search and category filtering
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
       .toLowerCase()
@@ -71,6 +73,7 @@ export default function Home() {
     return matchesSearch && matchesCategory;
   });
 
+  // Favorite toggle
   function toggleFavorite(id: string) {
     setFavorites((current) =>
       current.includes(id)
@@ -79,6 +82,7 @@ export default function Home() {
     );
   }
 
+  // Category emoji
   function getCategoryEmoji(productCategory: string) {
     switch (productCategory) {
       case "Electronics":
@@ -94,6 +98,7 @@ export default function Home() {
     }
   }
 
+  // Product price
   function getPriceLabel(product: Product) {
     if (product.type === "Free") return "Free";
     if (product.type === "Exchange") return "Exchange";
@@ -270,6 +275,7 @@ export default function Home() {
                   key={product._id}
                   className="overflow-hidden rounded-2xl border border-gray-700 bg-[#1F2937] transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-950/30"
                 >
+                  {/* PRODUCT IMAGE */}
                   <div className="relative flex h-52 items-center justify-center bg-gray-800">
                     {product.image ? (
                       <Image
@@ -286,6 +292,7 @@ export default function Home() {
                       </span>
                     )}
 
+                    {/* FAVORITE BUTTON */}
                     <button
                       onClick={() => toggleFavorite(product._id)}
                       className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-900/80 text-2xl hover:bg-blue-600"
@@ -295,6 +302,7 @@ export default function Home() {
                     </button>
                   </div>
 
+                  {/* PRODUCT INFORMATION */}
                   <div className="p-5">
                     <div className="flex flex-wrap gap-2 text-xs">
                       <span className="rounded-full bg-blue-950 px-3 py-1 text-blue-300">
@@ -319,16 +327,13 @@ export default function Home() {
                         {getPriceLabel(product)}
                       </span>
 
-                      <button
-                        onClick={() =>
-                          alert(
-                            `Product: ${product.name}\nSeller: ${product.seller}\nContact: ${product.contact}\nDescription: ${product.description}`
-                          )
-                        }
+                      {/* CORRECT PRODUCT DETAILS LINK */}
+                      <Link
+                        href={`/products/${product._id}`}
                         className="rounded-full border border-gray-600 px-4 py-2 text-xs font-semibold hover:border-blue-500 hover:text-blue-400"
                       >
                         View Details →
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </article>
@@ -358,6 +363,7 @@ export default function Home() {
         className="mx-auto max-w-7xl px-6 pb-16"
       >
         <h2 className="text-xl font-bold">Your Favorites</h2>
+
         <p className="mt-2 text-sm text-gray-400">
           {favorites.length} product(s) added to favorites in this session.
         </p>
