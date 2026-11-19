@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import connectDB from "@/lib/mongodb";
@@ -12,15 +13,19 @@ export async function GET() {
       database: mongoose.connection.name,
       state: mongoose.connection.readyState,
     });
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown database error";
+
+    console.error("MongoDB connection error:", errorMessage);
 
     return NextResponse.json(
       {
         success: false,
         message: "MongoDB connection failed.",
+        error: errorMessage,
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
