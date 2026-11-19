@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -51,7 +50,7 @@ export default function Home() {
         setError(
           error instanceof Error
             ? error.message
-            : "Something went wrong while loading products."
+            : "Something went wrong while loading products.",
         );
       } finally {
         setLoading(false);
@@ -67,8 +66,7 @@ export default function Home() {
       .toLowerCase()
       .includes(search.toLowerCase());
 
-    const matchesCategory =
-      category === "All" || product.category === category;
+    const matchesCategory = category === "All" || product.category === category;
 
     return matchesSearch && matchesCategory;
   });
@@ -78,7 +76,7 @@ export default function Home() {
     setFavorites((current) =>
       current.includes(id)
         ? current.filter((item) => item !== id)
-        : [...current, id]
+        : [...current, id],
     );
   }
 
@@ -203,10 +201,7 @@ export default function Home() {
       </section>
 
       {/* SEARCH AND CATEGORIES */}
-      <section
-        id="categories"
-        className="mx-auto max-w-7xl px-6 py-10"
-      >
+      <section id="categories" className="mx-auto max-w-7xl px-6 py-10">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center">
           <input
             type="text"
@@ -235,15 +230,10 @@ export default function Home() {
       </section>
 
       {/* PRODUCTS */}
-      <section
-        id="products"
-        className="mx-auto max-w-7xl px-6 pb-20"
-      >
+      <section id="products" className="mx-auto max-w-7xl px-6 pb-20">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold">
-              Recently Listed Products
-            </h2>
+            <h2 className="text-3xl font-bold">Recently Listed Products</h2>
 
             <p className="mt-2 text-sm text-gray-400">
               Discover affordable products from students in your campus.
@@ -270,7 +260,7 @@ export default function Home() {
         {!loading && !error && (
           <>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {filteredProducts.map((product) => (
+              {filteredProducts.map((product, index) => (
                 <article
                   key={product._id}
                   className="overflow-hidden rounded-2xl border border-gray-700 bg-[#1F2937] transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-950/30"
@@ -284,6 +274,7 @@ export default function Home() {
                         width={700}
                         height={400}
                         unoptimized
+                        loading={index === 0 ? "eager" : "lazy"}
                         className="h-52 w-full object-cover"
                       />
                     ) : (
@@ -344,13 +335,9 @@ export default function Home() {
               <div className="py-20 text-center text-gray-400">
                 <p className="text-4xl">🔍</p>
 
-                <p className="mt-4 text-lg">
-                  No products found.
-                </p>
+                <p className="mt-4 text-lg">No products found.</p>
 
-                <p className="mt-2 text-sm">
-                  Try another search or category.
-                </p>
+                <p className="mt-2 text-sm">Try another search or category.</p>
               </div>
             )}
           </>
@@ -358,10 +345,7 @@ export default function Home() {
       </section>
 
       {/* FAVORITES */}
-      <section
-        id="favorites"
-        className="mx-auto max-w-7xl px-6 pb-16"
-      >
+      <section id="favorites" className="mx-auto max-w-7xl px-6 pb-16">
         <h2 className="text-xl font-bold">Your Favorites</h2>
 
         <p className="mt-2 text-sm text-gray-400">
