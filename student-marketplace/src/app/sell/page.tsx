@@ -19,6 +19,8 @@ export default function SellProduct() {
   });
 
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   function handleChange(
     event: ChangeEvent<
@@ -35,8 +37,10 @@ export default function SellProduct() {
     setMessage("");
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isSubmitting) return;
 
     if (
       !form.name.trim() ||
@@ -44,18 +48,62 @@ export default function SellProduct() {
       !form.seller.trim() ||
       !form.contact.trim()
     ) {
+      setIsSuccess(false);
       setMessage("Please fill in all required fields.");
       return;
     }
 
     if (form.type === "Sale" && Number(form.price) <= 0) {
+      setIsSuccess(false);
       setMessage("Please enter a valid price.");
       return;
     }
 
-    setMessage(
-      "Your listing details are valid! Database saving will be added in the next stage."
-    );
+    try {
+      setIsSubmitting(true);
+      setMessage("");
+
+      const response = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...form,
+          price: form.type === "Sale" ? Number(form.price) : 0,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to add product.");
+      }
+
+      setIsSuccess(true);
+      setMessage("Product added successfully!");
+
+      setForm({
+        name: "",
+        category: "Electronics",
+        condition: "Good",
+        type: "Sale",
+        price: "",
+        description: "",
+        image: "",
+        seller: "",
+        contact: "",
+      });
+    } catch (error) {
+      setIsSuccess(false);
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -250,7 +298,7 @@ export default function SellProduct() {
           {message && (
             <div
               className={`rounded-lg p-4 text-sm ${
-                message.startsWith("Your listing")
+                isSuccess
                   ? "bg-green-950 text-green-300"
                   : "bg-red-950 text-red-300"
               }`}
@@ -261,9 +309,10 @@ export default function SellProduct() {
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-blue-600 py-4 font-semibold hover:bg-blue-700"
+            disabled={isSubmitting}
+            className="w-full rounded-lg bg-blue-600 py-4 font-semibold hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Submit Product Details
+            {isSubmitting ? "Saving Product..." : "Submit Product Details"}
           </button>
         </form>
       </div>
