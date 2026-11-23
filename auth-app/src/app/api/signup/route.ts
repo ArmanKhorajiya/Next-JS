@@ -1,4 +1,5 @@
 import { userSchema } from "@/app/schema/user";
+import User from "@/app/models/user";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -8,11 +9,9 @@ export async function POST(request: Request) {
   if (!result.success) {
     return Response.json(
       {
-        message: "Validation failed",
-        errors: result.error.issues.map((issue) => ({
-          field: issue.path.join("."),
-          message: issue.message,
-        })),
+        success: false,
+        data: null,
+        message: result.error.issues[0].message,
       },
       { status: 400 },
     );
