@@ -1,6 +1,6 @@
 // app/api/auth/login/route.ts
 import { cookies } from "next/headers";
-
+import bcrypt from "bcryptjs";
 import User from "@/app/models/user";
 import { connectToDatabase } from "@/app/lib/mongodb";
 import { signToken } from "@/app/lib/auth/jwt";
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     if (!email || !password) {
       return Response.json(
         { error: "Email and password are required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    const valid = await verifyPassword(password, user.passwordHash);
+    const valid = await bcrypt.compare(password, user.passwordHash);
 
     if (!valid) {
       return Response.json({ error: "Invalid credentials" }, { status: 401 });
@@ -39,15 +39,18 @@ export async function POST(request: Request) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     });
 
-    return Response.json({
-      id: user._id.toString(),
-      name: user.name,
-      email: user.email,
-    });
-  } catch {
-    return Response.json({ error: "Something went wrong" }, { status: 500 });
+    return Response.json(
+      { message: "Logged in successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Login error:", error);
+    return Response.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
