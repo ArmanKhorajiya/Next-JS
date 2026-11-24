@@ -1,7 +1,7 @@
 // app/api/auth/login/route.ts
 import { cookies } from "next/headers";
 
-import User from "@/models/user";
+import User from "@/app/models/user";
 import { connectToDatabase } from "@/app/lib/mongodb";
 import { signToken } from "@/app/lib/auth/jwt";
 

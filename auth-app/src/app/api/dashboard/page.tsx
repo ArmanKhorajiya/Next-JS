@@ -172,7 +172,7 @@ export default function DashboardPage() {
         {/* Dashboard Content */}
         <div className="p-6 md:p-10">
           {/* Welcome Banner */}
-          <div className="mb-8 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white">
+          <div className="mb-8 rounded-2xl bg-linear-to-r from-indigo-600 to-purple-600 p-8 text-white">
             <h2 className="text-2xl font-bold">Good morning, John! 👋</h2>
             <p className="mt-2 text-indigo-100">
               Here's a quick overview of your business performance.
